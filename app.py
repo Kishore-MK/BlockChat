@@ -2,16 +2,16 @@ import streamlit as st
 from web3 import Web3
 import openai
 import requests
+import os
 
 # Set up OpenAI API key
-openai.api_key = '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'
+openai.api_key = os.getenv("api_key")
 
 # Set up Etherscan API key
-etherscan_api_key = '68PQB8YRA35YU5VFW4N9P32IXSU8AHKCD6'
+etherscan_api_key = os.getenv("etherscan")
 
 # Set up Infura API credentials
-infura_url = '4576a1b79c004deea16a86c964e7d889'
-infura_project_secret = 'YOUR_INFURA_PROJECT_SECRET'
+infura_url = os.getenv("infura_url")
 
 # Function to process user query and execute cryptocurrency transactions
 def process_query(query, user_address):
@@ -27,7 +27,7 @@ def process_query(query, user_address):
     transaction_details = extract_transaction_details(response.choices[0].text)
     st.text(response.choices[0].text)
     # Execute cryptocurrency transaction based on the extracted details
-    execute_transaction(transaction_details, user_address)
+    execute_transaction(transaction_details, user_address,infura_url)
 
 # Function to extract transaction details from the response
 def extract_transaction_details(response_text):
@@ -37,7 +37,7 @@ def extract_transaction_details(response_text):
     pass
 
 # Function to execute cryptocurrency transaction
-def execute_transaction(transaction_details, user_address):
+def execute_transaction(transaction_details, user_address,infura_url):
     # Your code to execute cryptocurrency transaction based on the extracted details goes here
     # This part will involve interacting with cryptocurrency wallets, exchanges, or blockchain networks
     # Placeholder code to interact with Etherscan API
@@ -51,7 +51,7 @@ def execute_transaction(transaction_details, user_address):
     # You can use Infura SDK or web3.py library to interact with Infura API
 
     # Example code to connect to Metamask using Web3.py
-    web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/4576a1b79c004deea16a86c964e7d889'))
+    web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/{infura_url}'))
 
     # Check if the user's address has sufficient balance
     if transaction_details['amount']:
