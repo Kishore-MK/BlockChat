@@ -5,13 +5,13 @@ import requests
 import os
 
 # Set up OpenAI API key
-openai.api_key = os.getenv("api_key")
+openai.api_key = ""
 
 # Set up Etherscan API key
-etherscan_api_key = os.getenv("etherscan")
+etherscan_api_key = ""
 
 # Set up Infura API credentials
-infura_url = os.getenv("infura_url")
+infura_url = ""
 
 # Function to process user query and execute cryptocurrency transactions
 def process_query(query, user_address):
